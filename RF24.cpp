@@ -49,8 +49,10 @@ void RF24::csn(bool mode)
 #endif
 
 #if !defined (RF24_LINUX)
+
 	digitalWrite(csn_pin,mode);
 	delayMicroseconds(csDelay);
+
 #endif
 
 }
@@ -104,6 +106,7 @@ uint8_t RF24::read_register(uint8_t reg, uint8_t* buf, uint8_t len)
   // decrement before to skip status byte
   while ( --size ){ *buf++ = *prx++; } 
   endTransaction(); //unlocks mutex and setting csn high
+
 
 #else
 
@@ -187,6 +190,7 @@ uint8_t RF24::write_register(uint8_t reg, const uint8_t* buf, uint8_t len)
 uint8_t RF24::write_register(uint8_t reg, uint8_t value)
 {
   uint8_t status;
+  uint16_t result;
 
   IF_SERIAL_DEBUG(printf_P(PSTR("write_register(%02x,%02x)\r\n"),reg,value));
 
@@ -199,6 +203,11 @@ uint8_t RF24::write_register(uint8_t reg, uint8_t value)
   	
 	_SPI.transfernb( (char *) spi_txbuff, (char *) spi_rxbuff, 2);
 	status = *prx++; // status is 1st byte of receive buffer
+	endTransaction();
+  #elif defined (MSP430F5529)
+	beginTransaction();
+	result = _SPI.transfer16( (value & 0x00FF) | (((reg & REGISTER_MASK) | W_REGISTER) << 8) );
+	status = (uint8_t) ((result & 0xFF00) >> 8);
 	endTransaction();
   #else
 
@@ -223,7 +232,7 @@ uint8_t RF24::write_payload(const void* buf, uint8_t data_len, const uint8_t wri
    uint8_t blank_len = dynamic_payloads_enabled ? 0 : payload_size - data_len;
   
   //printf("[Writing %u bytes %u blanks]",data_len,blank_len);
-  IF_SERIAL_DEBUG( printf("[Writing %u bytes %u blanks]\n",data_len,blank_len); );
+  IF_SERIAL_DEBUG( printf_P("[Writing %u bytes %u blanks]\n",data_len,blank_len); );
   
  #if defined (RF24_LINUX)
 	beginTransaction();
@@ -271,7 +280,7 @@ uint8_t RF24::read_payload(void* buf, uint8_t data_len)
   
   //printf("[Reading %u bytes %u blanks]",data_len,blank_len);
 
-  IF_SERIAL_DEBUG( printf("[Reading %u bytes %u blanks]\n",data_len,blank_len); );
+  IF_SERIAL_DEBUG( printf_P("[Reading %u bytes %u blanks]\n",data_len,blank_len); );
   
   #if defined (RF24_LINUX)
 	beginTransaction();
@@ -610,7 +619,8 @@ bool RF24::begin(void)
 	delay(200);
   #else
     // Initialize pins
-    if (ce_pin != csn_pin) pinMode(ce_pin,OUTPUT);  
+    if (ce_pin != csn_pin)
+    	pinMode(ce_pin,OUTPUT);
   
     #if ! defined(LITTLEWIRE)
       if (ce_pin != csn_pin)
@@ -1066,7 +1076,9 @@ bool RF24::available(void)
 
 bool RF24::available(uint8_t* pipe_num)
 {
-  if (!( read_register(FIFO_STATUS) & _BV(RX_EMPTY) )){
+  uint8_t status;
+  status = read_register(FIFO_STATUS);
+  if (!(status & _BV(RX_EMPTY) )){
 
     // If the caller wants the pipe number, include that
     if ( pipe_num ){
@@ -1243,7 +1255,7 @@ void RF24::enableDynamicPayloads(void)
     write_register(FEATURE,read_register(FEATURE) | _BV(EN_DPL) );
 
 
-  IF_SERIAL_DEBUG(printf("FEATURE=%i\r\n",read_register(FEATURE)));
+  IF_SERIAL_DEBUG(printf_P("FEATURE=%i\r\n",read_register(FEATURE)));
 
   // Enable dynamic payload on all pipes
   //
@@ -1265,7 +1277,7 @@ void RF24::enableAckPayload(void)
     //toggle_features();
     write_register(FEATURE,read_register(FEATURE) | _BV(EN_ACK_PAY) | _BV(EN_DPL) );
 
-  IF_SERIAL_DEBUG(printf("FEATURE=%i\r\n",read_register(FEATURE)));
+  IF_SERIAL_DEBUG(printf_P("FEATURE=%i\r\n",read_register(FEATURE)));
 
   //
   // Enable dynamic payload on pipes 0 & 1
@@ -1284,7 +1296,7 @@ void RF24::enableDynamicAck(void){
     //toggle_features();
     write_register(FEATURE,read_register(FEATURE) | _BV(EN_DYN_ACK) );
 
-  IF_SERIAL_DEBUG(printf("FEATURE=%i\r\n",read_register(FEATURE)));
+  IF_SERIAL_DEBUG(printf_P("FEATURE=%i\r\n",read_register(FEATURE)));
 
 
 }
@@ -1536,6 +1548,14 @@ void RF24::setRetries(uint8_t delay, uint8_t count)
  write_register(SETUP_RETR,(delay&0xf)<<ARD | (count&0xf)<<ARC);
 }
 
+uint8_t RF24::isConnected()
+{
+	uint8_t aw;
+
+	aw = read_register(SETUP_AW);
+	return (aw & 0x0E);
+	//return((aw & 0xFC) == 0x00 && (aw & 0x03) != 0x00);
+}
 
 //ATTiny support code pulled in from https://github.com/jscrane/RF24
 

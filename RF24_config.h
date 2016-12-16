@@ -11,13 +11,19 @@
   Added __ARDUINO_X86__ support
 */
 
+/* lemariva <lemariva@gmail.com>
+ * Added Launchpad support
+ * 	 #define TI_LAUNCHPADS
+ */
+
 #ifndef __RF24_CONFIG_H__
 #define __RF24_CONFIG_H__
 
-  /*** USER DEFINES:  ***/  
+  /*** USER DEFINES:  ***/
+    #define TI_LAUNCHPADS
   //#define FAILURE_HANDLING
   //#define SERIAL_DEBUG
-  //#define MINIMAL
+  //#define MINIMAL     // Required for MSP430G2
   //#define SPI_UART  // Requires library from https://github.com/TMRh20/Sketches/tree/master/SPI_UART
   //#define SOFTSPI   // Requires library from https://github.com/greiman/DigitalIO
   
@@ -35,6 +41,10 @@
   #define XMEGA
   #define XMEGA_D3
   #include "utility/ATXMegaD3/RF24_arch_config.h"
+
+#elif (defined (TI_LAUNCHPADS) )
+  	  #include "utility/TI_Launchpads/ti_launchpads.h"
+
 #elif ( !defined (ARDUINO) ) // Any non-arduino device is handled via configure/Makefile
 
   // The configure script detects device and copies the correct includes.h file to /utility/includes.h

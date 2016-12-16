@@ -57,9 +57,11 @@ private:
   SPIUARTClass uspi;
 #endif
 
-#if defined (RF24_LINUX) || defined (XMEGA_D3) /* XMEGA can use SPI class */
+#if defined (RF24_LINUX) || defined (XMEGA_D3) || defined(MSP430F5529) || defined(MSP430G2) /* XMEGA can use SPI class */
   SPI spi;
 #endif
+
+
 #if defined (MRAA)
   GPIO gpio;
 #endif
@@ -78,7 +80,6 @@ private:
   uint8_t addr_width; /**< The address width to use - 3,4 or 5 bytes. */
   
 
-protected:
   /**
    * SPI transactions
    *
@@ -88,6 +89,9 @@ protected:
   inline void beginTransaction();
 
   inline void endTransaction();
+
+protected:
+
 
 public:
 
@@ -642,6 +646,8 @@ s   *
    */
   bool isValid() { return ce_pin != 0xff && csn_pin != 0xff; }
   
+
+  uint8_t isConnected();
    /**
    * Close a pipe after it has been previously opened.
    * Can be safely called without having previously opened a pipe.
