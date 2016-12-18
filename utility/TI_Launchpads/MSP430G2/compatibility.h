@@ -19,12 +19,12 @@
 #ifndef COMPATIBLITY_H
 #define	COMPATIBLITY_H
 
+#include <msp430.h>
+#include <stdint.h>
+
 #ifdef	__cplusplus
 extern "C" {
 #endif
-
-#include <msp430.h>
-#include <stdint.h>
 
 void __msleep(int milisec);
 void __usleep(int milisec);

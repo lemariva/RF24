@@ -17,15 +17,18 @@
 #ifndef __RF24_TI_LAUNCHPADS_H__
 #define __RF24_TI_LAUNCHPADS_H__
 
-/*** USER DEFINES:  ***/
-//#define MSP430G2
-//#define MSP430F5529
+/*** TEXAS INSTRUMENT LAUNCHPAD ***/
+// #define MSP430G2
+// #define MSP430F5529
+// #define TM4C1294XL  // -> needs TivaWare_C_Series
 /**********************/
 
 #if defined(MSP430G2)
 	#include "MSP430G2/includes.h"
 #elif defined(MSP430F5529)
-	#include "MSP430F5529/includes.h"
+	#include "TM4C1294xl/includes.h"
+#elif defined(TM4C1294XL)
+	#include "TM4C1294xl/includes.h"   // needs TivaWare_C_Series
 #endif
 
 

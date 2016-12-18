@@ -5,8 +5,6 @@
  *      Author: riva
  */
 
-
-#include <msp430.h>
 #include "uart.h"
 
 /**
@@ -45,7 +43,6 @@ unsigned char uart_getc()
 
 void uart_putc(unsigned char c)
 {
-	while(isReceiving);
 	while (!(IFG2&UCA0TXIFG));              // USCI_A0 TX buffer ready?
   	UCA0TXBUF = c;                    		// TX
 }

@@ -5,8 +5,6 @@
  *      Author: riva
  */
 
-
-#include <msp430f5529.h>
 #include "uart.h"
 
 /**
@@ -64,12 +62,12 @@ void uart_puts(const char *str)
 }
 
 
-#pragma vector=USCIAB0RX_VECTOR
-__interrupt void USCI0RX_ISR(void)
-{
-	if(uart_rx_isr_ptr != 0L) {
-		(uart_rx_isr_ptr)(UCA0RXBUF);
-	}
-}
+//#pragma vector=USCIAB0RX_VECTOR
+//__interrupt void USCI0RX_ISR(void)
+//{
+//	if(uart_rx_isr_ptr != 0L) {
+//		(uart_rx_isr_ptr)(UCA0RXBUF);
+//	}
+//}
 
 

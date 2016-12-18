@@ -8,19 +8,21 @@
 #ifndef UART_H_
 #define UART_H_
 
-#define 	UART_RX_SIZE 	3
+#include <msp430.h>
 
+#define 	UART_RX_SIZE 	3
 #define 	UART_DRIVER_USCI_A 			// only USCI_A0 support UART
+
+
+#ifdef	__cplusplus
+extern "C" {
+#endif
 
 volatile unsigned int tx_flag;			//Mailbox Flag for the tx_char.
 volatile unsigned char tx_char;			//This char is the most current char to go into the UART
 
 volatile unsigned int rx_flag;			//Mailbox Flag for the rx_char.
 volatile unsigned char rx_char;			//This char is the most current char to come out of the UART
-
-// UART
-bool isReceiving;		// Status for when the device is receiving
-bool hasReceived;		// Lets the program know when a byte is received
 
 char RXBuff[UART_RX_SIZE];
 
@@ -59,5 +61,8 @@ void uart_puts(const char *str);
 
 void Receive();
 
+#ifdef	__cplusplus
+}
+#endif
 
 #endif /* UART_H_ */

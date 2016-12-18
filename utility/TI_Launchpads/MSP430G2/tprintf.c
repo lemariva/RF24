@@ -3,10 +3,6 @@
  * + Small changes by me
  */
 
-#include <msp430.h>
-#include <stdarg.h>
-
-#include "uart.h"
 #include "tprintf.h"
 
 static const unsigned long dv[] = {

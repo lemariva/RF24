@@ -8,6 +8,12 @@
 #ifndef UART_H_
 #define UART_H_
 
+#include <msp430f5529.h>
+
+#ifdef	__cplusplus
+extern "C" {
+#endif
+
 /**
  * Initialize soft UART
  */
@@ -40,6 +46,11 @@ void uart_putc(unsigned char c);
  * @param[in]	*str	the 0 terminated string to write
  */
 void uart_puts(const char *str);
+
+
+#ifdef	__cplusplus
+}
+#endif
 
 
 #endif /* UART_H_ */
