@@ -1,2 +1,12 @@
+TI Launchpads connected with RF24L001+ 
+====================================
 
-**See http://tmrh20.github.io/RF24 for all documentation**
+
+More info & Help
+-------------------------
+Original documentation: http://tmrh20.github.io/RF24
+Documentation for Texas Instrument Launchpads: comming soon!
+
+Credit
+-------------------------
+Based on: https://github.com/TMRh20/RF24
