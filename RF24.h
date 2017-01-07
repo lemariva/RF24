@@ -57,7 +57,7 @@ private:
   SPIUARTClass uspi;
 #endif
 
-#if defined (RF24_LINUX) || defined (XMEGA_D3) || defined(MSP430F5529) || defined(MSP430G2) /* XMEGA can use SPI class */
+#if defined (RF24_LINUX) || defined (XMEGA_D3) || defined(TI_LAUNCHPADS) /* XMEGA can use SPI class */
   SPI spi;
 #endif
 

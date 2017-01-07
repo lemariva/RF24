@@ -26,7 +26,7 @@
 #if defined(MSP430G2)
 	#include "MSP430G2/includes.h"
 #elif defined(MSP430F5529)
-	#include "TM4C1294xl/includes.h"
+	#include "MSP430F5529/includes.h"
 #elif defined(TM4C1294XL)
 	#include "TM4C1294xl/includes.h"   // needs TivaWare_C_Series
 #endif

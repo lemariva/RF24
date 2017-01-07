@@ -190,7 +190,6 @@ uint8_t RF24::write_register(uint8_t reg, const uint8_t* buf, uint8_t len)
 uint8_t RF24::write_register(uint8_t reg, uint8_t value)
 {
   uint8_t status;
-  uint16_t result;
 
   IF_SERIAL_DEBUG(printf_P(PSTR("write_register(%02x,%02x)\r\n"),reg,value));
 
@@ -204,11 +203,7 @@ uint8_t RF24::write_register(uint8_t reg, uint8_t value)
 	_SPI.transfernb( (char *) spi_txbuff, (char *) spi_rxbuff, 2);
 	status = *prx++; // status is 1st byte of receive buffer
 	endTransaction();
-  #elif defined (MSP430F5529)
-	beginTransaction();
-	result = _SPI.transfer16( (value & 0x00FF) | (((reg & REGISTER_MASK) | W_REGISTER) << 8) );
-	status = (uint8_t) ((result & 0xFF00) >> 8);
-	endTransaction();
+
   #else
 
   beginTransaction();
