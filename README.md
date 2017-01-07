@@ -4,13 +4,13 @@ TI Launchpads connected with nRF24L01+
 ## Wiring
 | 		  |				  |
 |:--------|:-------------:|
-| ![MSP430G2553](http://lemariva.com/storage/blogs_imgs/nrf24l001_imgs/tbm_msp-exp430g2_mspexp430g2.png) | GND (`PIN1`) - `GND`<br/>VCC (`PIN2`) - `3V3`<br/>CE (`PIN3`) - GPIO (`P2.5`)<br/>CSN (`PIN4`) - GPIO (`P2.2`)<br/>SCK (`PIN5`) - SCK (`P1.5`)<br/>MOSI(`PIN6`) - MISO (`P1.6`)<br/>MISO(`PIN7`) - MOSI (`P1.7`) <p><p/> <b>Debugging</b> (<a href="https://goo.gl/f7I005" target="_blank">CP2102 USB to TTL</a>) <br/>TXD - RXD (`P1.1`)<br/>RXD - TXD (`P1.2`)<br/>GND - GND |
+| ![MSP430G2553](http://lemariva.com/storage/blogs_imgs/nrf24l001_imgs/tbm_msp-exp430g2_mspexp430g2.png) | GND (`PIN1`) - `GND`<br/>VCC (`PIN2`) - `3V3`<br/>CE (`PIN3`) - GPIO (`P2.0`)<br/>CSN (`PIN4`) - GPIO (`P2.1`)<br/>SCK (`PIN5`) - SCK (`P1.5`)<br/>MOSI(`PIN6`) - MISO (`P1.7`)<br/>MISO(`PIN7`) - MOSI (`P1.6`) <p><p/> <b>Debugging</b> (<a href="https://goo.gl/f7I005" target="_blank">CP2102 USB to TTL</a>) <br/>TXD - RXD (`P1.1`)<br/>RXD - TXD (`P1.2`)<br/>GND - GND |
 
 <br/>
 
 | 		  |				  |
 |:--------|:-------------:|
-| ![MSP430F5529LP](http://lemariva.com/storage/blogs_imgs/nrf24l001_imgs/tbm_msp-exp430f5529lp_5529.png) | GND (`PIN1`) - `GND`<br/>VCC (`PIN2`) - `3V3`<br/>CE (`PIN3`) - GPIO (`P2.0`)<br/>CSN (`PIN4`) - GPIO (`P2.1`)<br/>SCK (`PIN5`) - UCB0CLK (`P3.2`)<br/>MOSI(`PIN6`) - UCB0SIMO (`P3.0`)<br/>MISO(`PIN7`) - UCB0SOMI (`P3.1`) <p><p/> <b>Debugging</b> (<a href="https://goo.gl/f7I005" target="_blank">CP2102 USB to TTL</a>) <br/>TXD - UCA0RXD (`P3.4`)<br/>RXD - UCA0TXD (`P3.3`)<br/>GND - GND |
+| ![MSP430F5529LP](http://lemariva.com/storage/blogs_imgs/nrf24l001_imgs/tbm_msp-exp430f5529lp_5529.png) | GND (`PIN1`) - `GND`<br/>VCC (`PIN2`) - `3V3`<br/>CE (`PIN3`) - GPIO (`P2.5`)<br/>CSN (`PIN4`) - GPIO (`P2.2`)<br/>SCK (`PIN5`) - UCB0CLK (`P3.2`)<br/>MOSI(`PIN6`) - UCB0SIMO (`P3.0`)<br/>MISO(`PIN7`) - UCB0SOMI (`P3.1`) <p><p/> <b>Debugging</b> (<a href="https://goo.gl/f7I005" target="_blank">CP2102 USB to TTL</a>) <br/>TXD - UCA0RXD (`P3.4`)<br/>RXD - UCA0TXD (`P3.3`)<br/>GND - GND |
 
 <br/>
 
